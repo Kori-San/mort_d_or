@@ -1,11 +1,11 @@
 #!/bin/bash
 
 pycheck(){
-if pip list | grep "$1" 1> /dev/null ; then
-    echo "'$ pip $1' found, skipping installing..."
+if pip list | grep "${1}" 1> /dev/null ; then
+    echo "'$ pip ${1}' found, skipping installing..."
 else
-    echo "'$ pip $1' not found, installing $1..."
-    pip3 install $1
+    echo "'$ pip ${1}' not found, installing ${1}..."
+    pip3 install "${1}"
 fi
 }
 
@@ -22,8 +22,9 @@ pycheck "random2"
 pycheck "tk"
 
 echo "All dependencies were checked, do you want to run the script ? (y/n)"
-read answer;
-if [ ${answer} == "n" ]; then
+read -r answer
+if [ "${answer,,}" == "n" ] || [ "${answer,,}" == "no" ]; then
     exit 0;
 fi
+
 exec ./Mort-d-or.py
