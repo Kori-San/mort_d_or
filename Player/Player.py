@@ -12,3 +12,6 @@ class Player:
 
     def talk(self):
         pass
+
+    def is_dead(self):
+        return self.hp <= 0
