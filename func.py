@@ -1,3 +1,14 @@
+import sys
+from random import randrange, randint
+
+import pygame as pygame
+from pygame import KEYDOWN
+from pygame.examples.textinput import Screen
+
+from Player.Monster import Monster
+
+tick_rate = 120000
+clock = pygame.time.Clock()
 def close_window() :
     pygame.quit()
     sys.exit()
@@ -6,11 +17,11 @@ def battle (player):
     cadre = pygame.image.load('HUD/comba/derrierplan.png')
     Screen.blit(cadre, (0,0))
     rand = randrange(0,101)
-    if monstre <= 50
+    if rand <= 50:
         monstrei = pygame.image.load('HUD/comba/monstre/dbat.png')
         monster = Monster("Monstre 1")
         Screen.blit(monstrei,(0,0))
-    else
+    else:
         monstrei = pygame.image.load('HUD/comba/monstre/slime.png')
         monster = Monster("Slime")
         Screen.blit(monstrei,(0,0))
@@ -25,7 +36,7 @@ def battle (player):
     comba_on = True
     sens = True
     speed = 4
-    while comba_on == True :
+    while comba_on:
         if xcurs >= 896 :
             sens = False
             speed += 0.5
@@ -34,9 +45,9 @@ def battle (player):
             speed += 0.5
         elif speed >= 10 :
             speed = 10
-        if sens == True :
+        if sens:
             xcurs += speed
-        elif sens == False :
+        elif not sens:
             xcurs -= speed
         Screen.blit(cadre,(0,0))
         Screen.blit(zone,(xzone,0))
