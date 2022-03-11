@@ -1,7 +1,5 @@
-from abc import ABC
 
-
-class player(ABC):
+class Player:
     def __init__(self, name, desc, type, hp, armor, weapon):
         self.name = name
         self.desc = desc
@@ -9,3 +7,6 @@ class player(ABC):
         self.hp = hp
         self.armor = armor
         self.weapon = weapon
+
+    def attack(self):
+        pass;
