@@ -2,25 +2,19 @@
 import pygame
 from time import *
 from random import *
-from tkinter import *
 import math
 import os
 import collections
 import sys
 
-
 # mort-d'or
+from Player.Warrior import Warrior
 from func import *
 
 
 def close_window():
     pygame.quit()
     sys.exit()
-
-
-def retrieve_input():
-    inputValue = textBox.get("1.0", "end-1c")
-    print(inputValue)
 
 
 # Main()
@@ -46,10 +40,7 @@ while (1):
         if event.type == pygame.MOUSEBUTTONUP:
             x, y = pygame.mouse.get_pos()
             if 300 < x < 520 and 250 < y < 700:
-"""                 root = Tk()
-                textBox = Text(root, height=2, width=10)
-                textBox.pack()
-                buttonCommit = Button(root, height=1, width=10, text="Commit",
-                                      command=lambda: retrieve_input()) """
+                player = Warrior("Jenkins", "Description")
+                battle(player)
                 print("Ouch")
     pygame.display.update()
