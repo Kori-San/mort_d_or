@@ -1,8 +1,11 @@
 # --|Import
 # -|Import Functions
+from re import L
+from select import select
 import sys
 from random import randrange, randint
 import pygame as pygame
+import tkinter as tk
 
 # -|Import Classes
 from Player.Player import Player
@@ -16,6 +19,7 @@ from Player.Ranger import Ranger
 Resolution_X = 1000
 Resolution_Y = 800
 Framerate = 120
+l = ['', '']
 
 # -|Screen
 Screen = pygame.display.set_mode(
@@ -26,7 +30,28 @@ Screen.set_alpha(None)
 Clock = pygame.time.Clock()
 useless_wait_var = 1
 
+# -|Tkinter
+master = tk.Tk()
+name = tk.Entry(master)
+desc = tk.Entry(master)
+
 # --|Funcs
+
+
+def getting():
+    l[0] = name.get()
+    l[1] = desc.get()
+    master.destroy()
+
+
+def selection():
+    tk.Label(master, text="Nom").grid(row=0)
+    tk.Label(master, text="Description").grid(row=1)
+    name.grid(row=0, column=1)
+    desc.grid(row=1, column=1)
+    tk.Button(master, text='Set', command=getting).grid(
+        row=3, column=0, sticky=tk.W, pady=4)
+    tk.mainloop()
 
 
 def refresh_tavern():
@@ -39,6 +64,7 @@ def refresh_tavern():
 
 def game():
     # -|game() : Game Loop
+    selection()
     while (1):
         refresh_tavern()
         for event in pygame.event.get():
@@ -48,7 +74,11 @@ def game():
                 x, y = pygame.mouse.get_pos()
                 if 300 < x < 520 and 250 < y < 700:
                     print("Touch : L'homme mystérieux")
-                    player = Warrior("Jenkins", "LEROYYYYYYYYYYYYY JENKINS")
+                    if l[0] == '' or l[1] == '':
+                        player = Warrior("Jenkins", "LEROYYYYYYYYYY JENKINS")
+                    else:
+                        player = Warrior(l[0], l[1])
+                    print(player.name)
                     battle(player)
 
 
