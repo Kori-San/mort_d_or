@@ -49,7 +49,7 @@ def battle (player):
                     #print('noice')
                     #print(xcurs)
                     if xzone-20 <= xcurs <= xzone+20 :
-                        refresh_plateau()
+                        pygame.display.update()
                         clock.tick(tick_rate)
                         pygame.display.update()
                         comba_on = False
