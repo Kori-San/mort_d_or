@@ -60,13 +60,12 @@ def battle (player):
                         Screen.blit(hit,(0,0))
                         clock.tick(tick_rate)
                         pygame.display.update()
-                        refresh_plateau()
                         Screen.blit(monstrei,(0,0))
                         Screen.blit(cadre,(0,0))
                         Screen.blit(zone,(xzone,0))
                         Screen.blit(curseur,(xcurs,0))
                         if player.is_dead :
-                            refresh_plateau()
+                            pygame.display.update()
                             comba_on = False
                     clock.tick(tick_rate)
                     pygame.display.update()
