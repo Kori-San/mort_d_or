@@ -7,8 +7,8 @@ class Player:
         self.armor = armor
         self.damage = damage
 
-    def attack(self):
-        pass
+    def attack(self, monster):
+        monster.hp -= self.damage
 
     def talk(self):
         pass

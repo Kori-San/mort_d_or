@@ -12,3 +12,6 @@ class Monster:
 
     def attack(self, player):
         player.hp -= self.damage
+
+    def is_dead(self):
+        return self.hp <= 0
