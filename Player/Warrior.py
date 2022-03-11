@@ -1,19 +1,6 @@
-from Player import Player
+from Player.Player import Player
 
 
-class Warrior:
+class Warrior(Player):
     def __init__(self, name, desc):
-        self.name = name
-        self.desc = desc
-        self.type = "Warrior"
-        self.hp = 100
-        self.armor = 50
-        self.damage = 50
-    def attack(self, monster):
-        monster.hp -= self.damage
-
-    def talk(self):
-        return self.desc
-
-    def is_dead(self):
-        return self.hp <= 0
+        super().__init__(name, desc,  type="Warrior", hp=100, armor=50, damage=50)

@@ -8,7 +8,9 @@ import collections
 import sys
 
 # mort-d'or
+from Player.Player import Player
 from Player.Warrior import Warrior
+from Player.Wizard import Wizard
 from func import *
 
 
@@ -40,7 +42,7 @@ while (1):
         if event.type == pygame.MOUSEBUTTONUP:
             x, y = pygame.mouse.get_pos()
             if 300 < x < 520 and 250 < y < 700:
-                player = Warrior("Jenkins", "Description")
+                player = Wizard("Jenkins", "LEROY JENKINS")
                 battle(player)
                 print("Ouch")
     pygame.display.update()

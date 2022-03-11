@@ -22,7 +22,7 @@ def battle(player):
     rand = randrange(0, 101)
     if rand <= 50:
         monstrei = pygame.image.load('HUD/comba/monstre/dbat.png')
-        monster = Monster("Monstre 1")
+        monster = Monster("Bat")
         Screen.blit(monstrei, (0, 0))
     else:
         monstrei = pygame.image.load('HUD/comba/monstre/slime.png')
@@ -64,10 +64,13 @@ def battle(player):
                     # print('noice')
                     # print(xcurs)
                     if xzone - 20 <= xcurs <= xzone + 20:
+                        print("Hors zone")
                         pygame.display.update()
                         clock.tick(tick_rate)
                         pygame.display.update()
-                        comba_on = False
+                        player.attack(monster)
+                        if monster.isDead():
+                            comba_on = False
                     else:
                         hit = pygame.image.load('HUD/hit.png')
                         monster.attack(player)
@@ -79,8 +82,10 @@ def battle(player):
                         Screen.blit(cadre, (0, 0))
                         Screen.blit(zone, (xzone, 0))
                         Screen.blit(curseur, (xcurs, 0))
-                        if player.is_dead:
+                        if player.isDead():
+                            print("here")
                             pygame.display.update()
+
                             comba_on = False
                     clock.tick(tick_rate)
                     pygame.display.update()

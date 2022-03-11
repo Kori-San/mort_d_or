@@ -1,17 +1,6 @@
-import random
-
-from Player import Player
+from Player.Player import Player
 
 
-class Monster:
+class Monster(Player):
     def __init__(self, name):
-        self.name = name
-        self.hp = 100
-        self.armor = 50
-        self.damage = 30
-
-    def attack(self, player):
-        player.hp -= self.damage
-
-    def is_dead(self):
-        return self.hp <= 0
+        super().__init__(name, desc="Je suis un monstre",  type="Monster", hp=100, armor=50, damage=50)
