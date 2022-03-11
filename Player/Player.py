@@ -11,7 +11,7 @@ class Player:
         monster.hp -= self.damage
 
     def talk(self):
-        pass
+        return self.desc
 
     def is_dead(self):
         return self.hp <= 0
