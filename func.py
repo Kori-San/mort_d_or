@@ -27,6 +27,7 @@ def battle (player):
         Screen.blit(monstrei,(0,0))
     xzone = randint(50,820)
     zone = pygame.image.load('HUD/comba/zone mob.png')
+
     Screen.blit(zone,(xzone,0))
     xcurs = randint(50,940)
     curseur = pygame.image.load('HUD/comba/curseur.png')
