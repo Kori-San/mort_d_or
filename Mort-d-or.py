@@ -1,17 +1,8 @@
 # utils
-import pygame
-from time import *
-from random import *
-import math
-import os
-import collections
-import sys
 
 # mort-d'or
-from Player.Player import Player
-from Player.Warrior import Warrior
 from Player.Wizard import Wizard
-from func import *
+from Utils.func import *
 
 
 def close_window():

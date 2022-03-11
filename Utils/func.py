@@ -17,23 +17,23 @@ def close_window():
 
 
 def battle(player):
-    cadre = pygame.image.load('HUD/comba/derrierplan.png')
+    cadre = pygame.image.load('../HUD/comba/derrierplan.png')
     Screen.blit(cadre, (0, 0))
     rand = randrange(0, 101)
     if rand <= 50:
-        monstrei = pygame.image.load('HUD/comba/monstre/dbat.png')
+        monstrei = pygame.image.load('../HUD/comba/monstre/dbat.png')
         monster = Monster("Bat")
         Screen.blit(monstrei, (0, 0))
     else:
-        monstrei = pygame.image.load('HUD/comba/monstre/slime.png')
+        monstrei = pygame.image.load('../HUD/comba/monstre/slime.png')
         monster = Monster("Slime")
         Screen.blit(monstrei, (0, 0))
     xzone = randint(50, 820)
-    zone = pygame.image.load('HUD/comba/zone mob.png')
+    zone = pygame.image.load('../HUD/comba/zone mob.png')
 
     Screen.blit(zone, (xzone, 0))
     xcurs = randint(50, 940)
-    curseur = pygame.image.load('HUD/comba/curseur.png')
+    curseur = pygame.image.load('../HUD/comba/curseur.png')
     Screen.blit(curseur, (xcurs, 0))
     clock.tick(tick_rate)
     pygame.display.update()
@@ -72,7 +72,7 @@ def battle(player):
                         if monster.isDead():
                             comba_on = False
                     else:
-                        hit = pygame.image.load('HUD/hit.png')
+                        hit = pygame.image.load('../HUD/hit.png')
                         monster.attack(player)
                         # print (joueur.pvactuel)
                         Screen.blit(hit, (0, 0))
