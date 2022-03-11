@@ -19,7 +19,7 @@ fi
 pycheck "pygame"
 pycheck "sys"
 pycheck "random2"
-pycheck "tk"
+sudo apt install python3-tk
 
 echo "All dependencies were checked, do you want to run the script ? (y/n)"
 read -r answer
