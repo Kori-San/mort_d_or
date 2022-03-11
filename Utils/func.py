@@ -1,91 +1,120 @@
+# --|Import
+# -|Import Functions
 import sys
 from random import randrange, randint
-
 import pygame as pygame
-from pygame import KEYDOWN
-from pygame.examples.textinput import Screen
 
+# -|Import Classes
+from Player.Player import Player
 from Player.Monster import Monster
+from Player.Wizard import Wizard
+from Player.Warrior import Warrior
+from Player.Ranger import Ranger
 
-tick_rate = 120000
-clock = pygame.time.Clock()
+# --|Vars
+# -|Parameters
+Resolution_X = 1000
+Resolution_Y = 800
+Framerate = 120
+
+# -|Screen
+Screen = pygame.display.set_mode(
+    (Resolution_X, Resolution_Y), pygame.DOUBLEBUF)
+Screen.set_alpha(None)
+
+# -|PyGame
+Clock = pygame.time.Clock()
+useless_wait_var = 1
+
+# --|Funcs
+
+
+def refresh_tavern():
+    tavern = pygame.image.load("HUD/tavern.png").convert_alpha()
+    man = pygame.image.load("HUD/man.png").convert_alpha()
+    Screen.blit(tavern, (0, 0))
+    Screen.blit(man, (300, 250))
+    pygame.display.update()
+
+
+def game():
+    # -|game() : Game Loop
+    while (1):
+        refresh_tavern()
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                close_window()
+            if event.type == pygame.MOUSEBUTTONUP:
+                x, y = pygame.mouse.get_pos()
+                if 300 < x < 520 and 250 < y < 700:
+                    print("Touch : L'homme mystérieux")
+                    player = Warrior("Jenkins", "LEROYYYYYYYYYYYYY JENKINS")
+                    battle(player)
 
 
 def close_window():
+    # -|close_window() : Close Window
     pygame.quit()
     sys.exit()
 
 
 def battle(player):
-    cadre = pygame.image.load('../HUD/comba/derrierplan.png')
-    Screen.blit(cadre, (0, 0))
-    rand = randrange(0, 101)
-    if rand <= 50:
-        monstrei = pygame.image.load('../HUD/comba/monstre/dbat.png')
-        monster = Monster("Bat")
-        Screen.blit(monstrei, (0, 0))
-    else:
-        monstrei = pygame.image.load('../HUD/comba/monstre/slime.png')
-        monster = Monster("Slime")
-        Screen.blit(monstrei, (0, 0))
-    xzone = randint(50, 820)
-    zone = pygame.image.load('../HUD/comba/zone mob.png')
-
-    Screen.blit(zone, (xzone, 0))
-    xcurs = randint(50, 940)
-    curseur = pygame.image.load('../HUD/comba/curseur.png')
-    Screen.blit(curseur, (xcurs, 0))
-    clock.tick(tick_rate)
-    pygame.display.update()
-    comba_on = True
-    sens = True
-    speed = 4
-    while comba_on:
-        if xcurs >= 896:
-            sens = False
-            speed += 0.5
-        elif xcurs <= 0:
-            sens = True
-            speed += 0.5
-        elif speed >= 10:
-            speed = 10
-        if sens:
-            xcurs += speed
-        elif not sens:
-            xcurs -= speed
-        Screen.blit(cadre, (0, 0))
-        Screen.blit(zone, (xzone, 0))
-        Screen.blit(curseur, (xcurs, 0))
-        clock.tick(tick_rate)
+    # -|battle(player) : Declare une bataille (player V.S un Monstre généré)
+    Fight_BG = pygame.image.load('HUD/comba/derrierplan.png')
+    Fight_Zone_FG = pygame.image.load('HUD/comba/zone mob.png')
+    Fight_Zone_X_Axis = randint(50, 820)
+    Fight_Cursor_FG = pygame.image.load('HUD/comba/curseur.png')
+    Fight_Cursor_X_Axis = randint(50, 940)
+    # Methode à écrire pour généré un monstre et rajouter le path en attribut
+    # Monster_Rand = randrange(0, 101)
+    # if Monster_Rand <= 50:
+    #     Monster_Sprite = pygame.image.load('HUD/comba/monstre/dbat.png')
+    #     Fighting_Monster = Monster("Bat")
+    # else:
+    #     Monster_Sprite = pygame.image.load('HUD/comba/monstre/slime.png')
+    #     Fighting_Monster = Monster("Slime")
+    # Fin Methode
+    Fighting_Monster = Monster('Monster')
+    Fighting_Monster.generate()
+    Monster_Sprite = pygame.image.load(Fighting_Monster.sprite)
+    Screen.blit(Monster_Sprite, (0, 0))
+    Fight = True
+    Direction = True
+    Speed = 6
+    Acceleration = 1
+    while Fight:
+        # Check Speed
+        if Speed >= 10:
+            Speed = 10
+        # Direction Management
+        if Direction:
+            Fight_Cursor_X_Axis += Speed
+            if Fight_Cursor_X_Axis >= 896:
+                Speed += Acceleration
+                Direction = False
+        elif not Direction:
+            Fight_Cursor_X_Axis -= Speed
+            if Fight_Cursor_X_Axis <= 0:
+                Speed += Acceleration
+                Direction = True
+        Screen.blit(Fight_BG, (0, 0))
+        Screen.blit(Fight_Zone_FG, (Fight_Zone_X_Axis, 0))
+        Screen.blit(Fight_Cursor_FG, (Fight_Cursor_X_Axis, 0))
         pygame.display.update()
         for event in pygame.event.get():
-            if event.type == KEYDOWN:
+            if event.type == pygame.QUIT:
+                close_window()
+            if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_SPACE:
-                    # print('noice')
-                    # print(xcurs)
-                    if xzone - 20 <= xcurs <= xzone + 20:
-                        print("Hors zone")
-                        pygame.display.update()
-                        clock.tick(tick_rate)
-                        pygame.display.update()
-                        player.attack(monster)
-                        if monster.isDead():
-                            comba_on = False
+                    if Fight_Zone_X_Axis - 20 <= Fight_Cursor_X_Axis <= Fight_Zone_X_Axis + 20:
+                        print("InZeZone")
+                        player.attack(Fighting_Monster)
+                        if Fighting_Monster.isDead():
+                            Fight = False
                     else:
-                        hit = pygame.image.load('../HUD/hit.png')
-                        monster.attack(player)
-                        # print (joueur.pvactuel)
-                        Screen.blit(hit, (0, 0))
-                        clock.tick(tick_rate)
-                        pygame.display.update()
-                        Screen.blit(monstrei, (0, 0))
-                        Screen.blit(cadre, (0, 0))
-                        Screen.blit(zone, (xzone, 0))
-                        Screen.blit(curseur, (xcurs, 0))
+                        print("NotInZeZone")
+                        Screen.blit(pygame.image.load('HUD/hit.png'), (0, 0))
+                        Screen.blit(Monster_Sprite, (0, 0))
+                        Fighting_Monster.attack(player)
                         if player.isDead():
-                            print("here")
-                            pygame.display.update()
-
-                            comba_on = False
-                    clock.tick(tick_rate)
-                    pygame.display.update()
+                            Fight = False
