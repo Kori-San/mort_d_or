@@ -1,12 +1,8 @@
 #!/bin/python3
 
+# --|Import
+# -|Import Functions
 from Utils.func import *
-
-
-def close_window():
-    pygame.quit()
-    sys.exit()
-
 
 # Main()
 pygame.init()
