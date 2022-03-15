@@ -31,8 +31,7 @@ class Player:
                   "<3", self.hp, "( +", heal_val, ")\n")
 
     def talk(self):
-        print("-| Name:", self.name, "\n   Class:", self.type)
-        print("   Description:", self.desc, "\n")
+        print("[", self.name, "The", self.type, "]\n**", self.desc, "**\n")
 
     def isDead(self, enemy):
         if self.hp <= 0:

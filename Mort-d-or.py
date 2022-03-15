@@ -1,7 +1,7 @@
 #!/bin/python3
 
 # --|Import
-# -|Import Functions
+# -|Custom Functions
 from Utils.func import *
 
 # Main()

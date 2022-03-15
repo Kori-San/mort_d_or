@@ -1,119 +1,16 @@
 # --|Import
 # -|Import Functions
-import sys
 from random import randint
-import pygame as pygame
-import tkinter as tk
+# -|Custom Functions
+from Utils.display import *
 
 # -|Import Classes
 from Player.Monster import Monster
-from Player.Wizard import Wizard
 from Player.Warrior import Warrior
+from Player.Wizard import Wizard
 from Player.Ranger import Ranger
 
-# --|Vars
-
-# -|Parameters
-Resolution_X = 1000
-Resolution_Y = 800
-Framerate = 120
-l = ["", "", ""]  # l[0, Name | 1, Description | 2, Class]
-
-# -|Screen
-Screen = pygame.display.set_mode(
-    (Resolution_X, Resolution_Y), pygame.DOUBLEBUF)
-Screen.set_alpha(None)
-
-# -|PyGame
-Clock = pygame.time.Clock()
-
-# -|Tkinter
-master = tk.Tk()
-name = tk.Entry(master)
-desc = tk.Entry(master)
-s_class = tk.StringVar(master)
-sel_class = tk.Entry(master, textvariable=s_class)
-
 # --|Funcs
-
-# -[|Tkinter|]
-
-
-def getting():
-    # -|getting(): Get info from Tkinter prompt
-    if name.get() != "":
-        print("Set name to:", name.get())
-        l[0] = name.get()
-    if desc.get() != "":
-        print("Set desc to:", desc.get())
-        l[1] = desc.get()
-    if sel_class.get() != "":
-        print("Set type to:", sel_class.get(), "\n")
-        l[2] = sel_class.get()
-    master.destroy()
-
-
-def select_char():
-    # -| select_char(): Display Tkinter prompt to get info for character creation
-    master.title("Select your Character!")
-    master.eval('tk::PlaceWindow . center')  # Center Display
-    tk.Label(master, text="Nom").pack()
-    name.pack()
-    tk.Label(master, text="Description").pack()
-    desc.pack()
-    s_class.set("Warrior")  # Default Value
-    class_box = tk.OptionMenu(master, s_class, "Warrior", "Wizard", "Ranger")
-    class_box.pack()
-    tk.Button(master, text="Set", command=getting).pack()
-    tk.mainloop()
-
-# -[|Pygame|]
-
-
-def close_window():
-    # -|close_window() : Close Window
-    pygame.quit()
-    sys.exit()
-
-
-def grave(player):
-    # -|grave(player): Display death of the player given in arg
-    refresh_tavern()
-    hit_hud = pygame.image.load("graphics/hit.png").convert_alpha()
-    Screen.blit(hit_hud, (0, 0))
-    skull = pygame.image.load("graphics/skull.png").convert_alpha()
-    Screen.blit(skull, (0, 0))
-    display_score(player)
-    pygame.time.wait(3*1000)
-    # Number of seconds * 1000 to match milliseconds requierements
-    close_window()
-
-
-def heal(player):
-    heal_hud = pygame.image.load("graphics/heal.png").convert_alpha()
-    Screen.blit(heal_hud, (0, 0))
-    pygame.display.update()
-    player.heal()
-    pygame.time.wait(250)  # 250 MilliSeconds
-
-
-def display_score(player):
-    # -|display_score(player): Display score of given player on pygame
-    font = pygame.font.SysFont("Myriad Pro", 72)
-    text = font.render(str(player.score), True, (255, 255, 255))
-    Screen.blit(text, (45, 25))
-    pygame.display.update()
-
-
-def refresh_tavern():
-    # -|refresh_tavern(): Flip screen to gain perf and display tavern
-    pygame.display.flip()
-    tavern = pygame.image.load("graphics/tavern.png").convert_alpha()
-    man = pygame.image.load("graphics/man.png").convert_alpha()
-    Screen.blit(tavern, (0, 0))
-    Screen.blit(man, (300, 250))
-    pygame.display.update()
-
 # -[|Game Func|]
 
 
@@ -144,7 +41,7 @@ def game():
                 x, y = pygame.mouse.get_pos()
                 # Coordinates of The Mysterious Man
                 if 300 < x < 520 and 250 < y < 700:
-                    print("> Touched [ L'homme mystérieux ] <\n")
+                    print("> Touched <\n[ L'homme mystérieux ]\n")
                     player.talk()
                     # Define Before Battle Var
                     current_hp = player.hp
@@ -156,7 +53,7 @@ def game():
                     after_battle_score = player.score
                     # End Def
                     # If Player did a perfect Battle then Heal + Chain++
-                    if current_hp == after_battle_hp:
+                    if current_hp == after_battle_hp and current_score != after_battle_score:
                         heal(player)
                         chain += 1
                         print("# Perfect Battle #\n[Chain]:", chain, "\n")
@@ -190,9 +87,9 @@ def battle(player):
     # Set Vars
     Fight = True
     Direction = True
-    Speed = 2
+    Speed = 1.5
     Acceleration = 0.25
-    Hitbox = 21.5
+    Hitbox = 20.5
     # Battle Loop
     while Fight:
         # Check Speed
