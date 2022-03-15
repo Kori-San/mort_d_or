@@ -1,25 +1,30 @@
 #!/bin/bash
 
 pycheck(){
-if pip list | grep "${1}" 1> /dev/null ; then
-    echo "'$ pip ${1}' found, skipping installing..."
+if pip3 list | grep "${1}" 1> /dev/null ; then
+    echo "'$ pip3 ${1}' found, skipping install..."
 else
-    echo "'$ pip ${1}' not found, installing ${1}..."
+    echo "'$ pip3 ${1}' not found, installing ${1}..."
     pip3 install "${1}"
 fi
 }
 
 if command -v "pip3" 1> /dev/null ; then
-    echo "'$ pip3' found, skipping installing..."
+    echo "'$ pip3' found, skipping install..."
 else
     echo "'$ pip3' not found, installing pip..."
-    sudo apt install pip3
+    sudo apt install pip3 -q -y
 fi
 
 pycheck "pygame"
 pycheck "sys"
 pycheck "random2"
-sudo apt install python3-tk
+if dpkg -s python3-tk 1> /dev/null ; then
+    echo "'$ python3-tk' found, skipping install..."
+else
+    echo "'$ python3-tk' not found, installing python3-tk..."
+    sudo apt install -q -y python3-tk 1> /dev/null
+fi
 
 echo "All dependencies were checked, do you want to run the script ? (y/n)"
 read -r answer

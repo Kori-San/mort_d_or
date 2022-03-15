@@ -48,7 +48,7 @@ def getting():
         print("Set desc to:", desc.get())
         l[1] = desc.get()
     if sel_class.get() != "":
-        print("Set type to:", sel_class.get())
+        print("Set type to:", sel_class.get(), "\n")
         l[2] = sel_class.get()
     master.destroy()
 
