@@ -77,9 +77,9 @@ def grave(player):
     display_score(player)
     pygame.time.wait(3*1000)
     # Number of seconds * 1000 to match milliseconds requierements
+    print(">", player.name, "has revived! < ( -", player.score, "$ )")
     player.score = 0
     player.hp = player.max_hp
-    print(">", player.name, "has revived! <\n")
 
 
 def heal(player):

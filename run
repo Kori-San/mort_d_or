@@ -26,10 +26,12 @@ else
     sudo apt install -q -y python3-tk 1> /dev/null
 fi
 
-echo "All dependencies were checked, do you want to run the script ? (y/n)"
-read -r answer
-if [ "${answer,,}" == "n" ] || [ "${answer,,}" == "no" ]; then
-    exit 0;
-fi
+echo -e "\nLaunching...\n"
+
+# echo "All dependencies were checked, do you want to run the script ? (y/n)"
+# read -r answer
+# if [ "${answer,,}" == "n" ] || [ "${answer,,}" == "no" ]; then
+#     exit 0;
+# fi
 
 exec ./Mort-d-or.py
