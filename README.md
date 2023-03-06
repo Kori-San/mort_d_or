@@ -1,4 +1,4 @@
-# Mort-d-or
+# Mort d'or
 Project: Mort d'or
 
 # Installation
